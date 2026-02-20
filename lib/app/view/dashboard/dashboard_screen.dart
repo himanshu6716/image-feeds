@@ -111,6 +111,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      // 🔹 HEADER
                                       Padding(
                                         padding: const EdgeInsets.all(
                                           defaultBorderRadius / 2,
@@ -162,116 +163,44 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           ],
                                         ),
                                       ),
-
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (_) => FullScreenImage(
-                                                imageBase64: item["image"]!,
-                                                tag: "image_$index",
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) => FullScreenImage(
+                                                  imageBase64: item["image"]!,
+                                                  tag: "image_$index",
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag: "image_$index",
-                                          child: AspectRatio(
-                                            aspectRatio: 1,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.vertical(
-                                                    top: Radius.circular(
-                                                      smallBorderRadius,
-                                                    ),
-                                                  ),
-                                              child: Image.memory(
-                                                base64Decode(item["image"]!),
-                                                fit: BoxFit.cover,
+                                            );
+                                          },
+                                          child: Hero(
+                                            tag: "image_$index",
+                                            child: Container(
                                                 width: size.width,
+                                                color: backgroundColor,
+                                                child: Image.memory(
+                                                  base64Decode(item["image"]!),
+                                                  fit: BoxFit.contain,
+                                                  width: double.infinity,
+                                                  height: double.infinity,
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-
-                                      const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: defaultBorderRadius / 2,
-                                          vertical: smallBorderRadius / 2,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.favorite_border,
-                                              size: largeIconSize,
-                                            ),
-                                            SizedBox(width: 16),
-                                            Icon(
-                                              Icons.mode_comment_outlined,
-                                              size: mediumIconSize,
-                                            ),
-                                            SizedBox(width: 16),
-                                            Icon(
-                                              Icons.send_outlined,
-                                              size: mediumIconSize,
-                                            ),
-                                            Spacer(),
-                                            Icon(
-                                              Icons.bookmark_border,
-                                              size: mediumIconSize,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-
                                       Padding(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                           horizontal: smallBorderRadius,
+                                          vertical: defaultBorderRadius / 4,
                                         ),
                                         child: Text(
-                                          "Liked by user123 and others",
+                                          Utils().formatTime(item["time"]!),
                                           style: Theme.of(
                                             context,
-                                          ).textTheme.bodyMedium,
-                                        ),
-                                      ),
-
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: smallBorderRadius,
-                                          vertical: defaultBorderRadius / 4,
-                                        ),
-                                        child: Text.rich(
-                                          TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: "username ",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium
-                                                    ?.copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                              ),
-                                              const TextSpan(
-                                                text:
-                                                    "This is my awesome post 🔥",
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: smallBorderRadius,
-                                          vertical: defaultBorderRadius / 4,
-                                        ),
-                                        child: Text(
-                                         Utils().formatTime(item["time"]!),
-                                          style: Theme.of(context).textTheme.labelSmall,
+                                          ).textTheme.labelSmall,
                                         ),
                                       ),
                                     ],
